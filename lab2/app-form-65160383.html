@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ฟอร์มสมัครงาน</title>
+    <style>
+        label[for="name"]{
+            margin-right: 155px;
+        }
+        input[for="surname"]{
+            margin-right: 100px;
+        }
+        label[for="salary"]{
+            margin-right: 55px;
+        }
+        input[for="start_date"]{
+            margin-right: 100px;
+        }
+        label[for="phone_number"]{
+            margin-right: 75px;
+        }
+        input[for="phone_number_home"]{
+            margin-right: 100px;
+        }
+    </style>
+</head> 
+<body>
+    <h1>ฟอร์มสมัครงาน</h1>
+
+    <form action="/summit" method="post">
+        <label for="name">ชื่อ*</label>
+        <label for="name">นามสกุล*</label><br>
+        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="surname" required><br><br>
+
+        <label for="name">อีเมล*</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="name">เว็บไซต์ผลงาน*</label><br>
+        <input type="text" id="website" name="website" placeholder="http://" required><br><br>
+
+        <label for="ตำแหน่งที่ต้องการสมัคร">อีเมล*</label><br>
+        <input type="email" id="position" name="position" required><br><br>
+
+        <label for="salary">เงินเดือนที่ต้องการ*</label>
+        <label for="salary">จะเริ่มงานได้เมื่อไหร่*</label><br>
+        <input type="text" id="salary" name="salary" required>
+        <input type="text" id="start_job" name="start_job" required><br><br>
+
+        <label for="phone_number">โทรศัพท์มือถือ*</label>
+        <label for="phone_number_home">โทรศัพท์บ้าน*</label><br>
+        <input type="tel" id="phone_number" name="phone_number" required>
+        <input type="tel" id="phone_number_home" name="phone_number_home" required><br><br>
+        
+        <label for="move">คุณสะดวกที่จะย้ายที่อยู่หรือไม่*</label><br>
+        <input type="radio" id="choice1" name="choice" value="สะดวก">
+        <label for="choice1">สะดวก</label>
+        <input type="radio" id="choice2" name="choice" value="ไม่สะดวก">
+        <label for="choice1">ไม่สะดวก</label>
+        <input type="radio" id="choice3" name="choice" value="ไม่เเน่ใจ">
+        <label for="choice1">ไม่เเน่ใจ</label><br><br>
+
+        <label for="work_experience">ลักษณะงานที่ทำล่าสุด*</label><br>
+        <textarea id="work_experience" name="work_experience" rows="1" cols="50"></textarea><br><br>
+
+        <label for="questions">คำถามเพิ่มเติม*</label><br>
+        <textarea id="questions" name="questions" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="ส่งใบสมัคร">
+    </form>
+</body>
