@@ -1,64 +1,63 @@
 /* สไตล์ CSS ของโปรแกรม Todo */
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    margin: 20px;
-    background-color: #f8f8f8;
-  }
-  
-  h1 {
-    color: #333;
-    font-size: 24px;
-    background-color: #bbffb2;
-    padding: 15px;
-    border-radius: 5px;
-    color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    background-color: #fff;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  li.completed {
-    background-color: #d4edda;
-    text-decoration: line-through;
-  }
-  
-  input[type="text"] {
-    width: 60%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-right: 10px;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 12px 24px;
-    background-color: #ffaced;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin: 20px;
+  background-color: #f0f0f0; /* สีพื้นหลัง pastel */
+}
+
+h1 {
+  color: #555; /* สีข้อความเข้มข้น */
+  font-size: 36px; /* ขนาดตัวหนังสือที่ใหญ่ขึ้น */
+  background-color: #add8e6; /* สีพื้นหลัง pastel */
+  padding: 20px;
+  border-radius: 10px;
+  color: #333; /* สีข้อความเข้มข้น */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #f8f8f8; /* สีพื้นหลัง pastel */
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+li.completed {
+  background-color: #dcdcdc; /* สีพื้นหลัง pastel สำหรับรายการที่เสร็จสมบูรณ์ */
+  text-decoration: line-through;
+}
+
+input[type="text"] {
+  width: 70%; /* ขยายขนาด input ให้กว้างขึ้น */
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 18px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+}
+
+button {
+  padding: 14px 24px; /* ปรับขนาดปุ่ม */
+  background-color: #ffb6c1; /* สีปุ่ม pastel */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ff69b4; /* สีปุ่ม pastel เมื่อชี้ไป */
+}
