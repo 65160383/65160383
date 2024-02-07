@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book DB - JSON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: beige;
+        }
+
+        h3 {
+            background-color: #0f70df;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 35px;
+            color: rgba(248, 248, 248, 0.89);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .theader {
+            background-color: #0f49c5;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+        }
+
+        .theader:hover {
+            background-color: #1547ce;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-24 {
+            background: #1767d1;
+            border: 1px solid #0d3cbd;
+            border-radius: 6px;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 10px 20px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-24:hover,
+        .button-24:active {
+            background-color: #0b82d1;
+        }
+
+        table {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3>Book DB</h3>
+    <div class="grid-container">
+        <div>ค้นหาหนังสือ : <input type="text" id="search" class="search-input" onkeyup="searchBook()"></div>
+        <div></div>
+        <div><a href="addeditbook.html" class="button-24">เพิ่ม</a></div>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        var books;
+
+        function searchBook() {
+            var search = document.getElementById("search").value.toLowerCase();
+            var result = document.getElementById("result");
+            var html = "<table><tr class='theader'><th>ID</th><th>Name</th><th>Author</th><th>Price</th><th>Actions</th></tr>";
+            
+            for (var i = 0; i < books.length; i++) {
+                var book = books[i];
+                var author = book.author + ', ' + book.author2 + ', ' + book.author3;
+
+                if (book.name.toLowerCase().includes(search) || author.toLowerCase().includes(search) || book.id.toString().includes(search)) {
+                    html += "<tr>" +
+                        "<td>" + book.id + "</td>" +
+                        "<td>" + book.name + "</td>" +
+                        "<td>" + author + "</td>" +
+                        "<td>" + book.price + "</td>" +
+                        "<td><img src='https://t.ly/mtMN' onclick='editBook(" + book.id + ")'>" +
+                        "<img src='https://t.ly/523J' onclick='deleteBook(" + book.id + ")'></td>" +
+                        "</tr>";
+                }
+            }
+            html += "</table>";
+            result.innerHTML = "<br><h3>ผลการค้นหา</h3><br>" + html;
+        }
+
+        function editBook(id) {
+            window.location.href = 'addeditbook.html?id=' + id;
+        }
+
+        function deleteBook(id) {
+            for (var i = 0; i < books.length; i++) {
+                if (books[i].id == id) {
+                    books.splice(i, 1);
+                }
+            }
+            localStorage.setItem("books", JSON.stringify(books));
+            searchBook();
+        }
+
+        var storedBooks = localStorage.getItem("books");
+        books = storedBooks ? JSON.parse(storedBooks) : [];
+        searchBook();
+    </script>
+</body>
+</html>

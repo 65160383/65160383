@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book DB - JSON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            margin: 20px;
+        }
+
+        h3 {
+            background-color: #428bca;
+            text-align: center;
+            font-size: 35px;
+            color: #ffffff;
+            border-radius: 10px;
+            margin: 5px 0;
+            padding: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .container input[type="text"],
+        .container input[type="hidden"] {
+            width: calc(100% - 16px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .container .button-24 {
+            grid-column: span 2;
+            width: 100%;
+            background-color: #428bca;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .container .button-24:hover {
+            background-color: #3071a9;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Book DB :: add edit</h3>
+    <h3 style="font-size: 20px;">เพิ่มหนังสือ :</h3>
+
+    <div class="container">
+        <input type="hidden" id="id">
+        <p>ชื่อหนังสือ</p>
+        <input type="text" id="book_name" placeholder="ชื่อหนังสือ">
+        <p>ผู้แต่ง1</p>
+        <input type="text" id="book_author" placeholder="ผู้แต่ง1">
+        <p>ผู้แต่ง2</p>
+        <input type="text" id="book_author2" placeholder="ผู้แต่ง2">
+        <p>ผู้แต่ง3</p>
+        <input type="text" id="book_author3" placeholder="ผู้แต่ง3">
+        <p>ราคา</p>
+        <input type="text" id="book_price" placeholder="ราคา">
+        <a href="search.html" class="button-24" onclick="addBook()">Save</a>
+    </div>
+
+    <hr>
+    <br>
+    <div id="result"></div>
+    <script>
+        var books = JSON.parse(localStorage.getItem("books"));
+        if (books == null) {
+            books = [];
+        }
+
+        function findMaxBookId() {
+            var max = 0;
+            for (var i = 0; i < books.length; i++) {
+                if (books[i].id > max) {
+                    max = books[i].id;
+                }
+            }
+            return max;
+        }
+
+        function addBook() {
+            var id = document.getElementById("id").value;
+            var name = document.getElementById("book_name").value;
+            var author = document.getElementById("book_author").value;
+            var author2 = document.getElementById("book_author2").value;
+            var author3 = document.getElementById("book_author3").value;
+            var price = document.getElementById("book_price").value;
+
+            if (id == "") {
+                id = findMaxBookId() + 1;
+                var book = {
+                    id: id,
+                    name: name,
+                    author: author,
+                    author2: author2,
+                    author3: author3,
+                    price: price
+                };
+                books.push(book);
+            } else {
+                for (var i = 0; i < books.length; i++) {
+                    if (books[i].id == id) {
+                        books[i].name = name;
+                        books[i].author = author;
+                        books[i].author2 = author2;
+                        books[i].author3 = author3;
+                        books[i].price = price;
+                    }
+                }
+            }
+            localStorage.setItem("books", JSON.stringify(books));
+            document.getElementById("id").value = "";
+            document.getElementById("book_name").value = "";
+            document.getElementById("book_author").value = "";
+            document.getElementById("book_author2").value = "";
+            document.getElementById("book_author3").value = "";
+            document.getElementById("book_price").value = "";
+            document.getElementById("book_name").focus();
+            searchBook();
+        }
+
+        function editBook(id) {
+            for (var i = 0; i < books.length; i++) {
+                if (books[i].id == id) {
+                    document.getElementById("id").value = books[i].id;
+                    document.getElementById("book_name").value = books[i].name;
+                    document.getElementById("book_author").value = books[i].author;
+                    document.getElementById("book_author2").value = books[i].author2;
+                    document.getElementById("book_author3").value = books[i].author3;
+                    document.getElementById("book_price").value = books[i].price;
+                }
+            }
+        }
+
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookId = urlParams.get('id');
+
+            if (bookId) {
+                const book = books.find(book => book.id == bookId);
+                document.getElementById("id").value = book.id;
+                document.getElementById("book_name").value = book.name;
+                document.getElementById("book_author").value = book.author;
+                document.getElementById("book_author2").value = book.author2;
+                document.getElementById("book_author3").value = book.author3;
+                document.getElementById("book_price").value = book.price;
+            }
+        }
+
+        function searchBook() {
+            // Code to display search results
+            // You can implement this functionality if needed
+        }
+    </script>
+</body>
+</html>
