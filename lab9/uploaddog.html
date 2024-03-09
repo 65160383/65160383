@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload</title>
+</head>
+<body>
+  <h3>Upload a dog</h3>
+  <input type="file" id="fileInput" />
+  <input type="hidden" name="sub-id" id="sub-id" value="by-witty" />
+  <button id="btUpload" onclick="uploadImage()">Upload</button>
+  <div id="uploadResults"></div>
+  
+  <script>
+    const API_URL = "https://api.thedogapi.com/v1/";
+    const API_KEY = "live_Qni3tTW0k6FKxBMiLJ5hv4Pj9vUslb4MoiyuLUwsiVwQdo438uyHfMbida3juijZ";
+
+    function uploadImage() {
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch(`${API_URL}images/upload`, {
+        method: "POST",
+        headers: {
+          "x-api-key": API_KEY,
+        },
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          document.getElementById("uploadResults").innerHTML = `<img src="${data.url}" width="50%" />`;
+          alert("Image uploaded successfully");
+          // หลังจากอัปโหลดรูปแล้ว ให้กลับไปยังหน้า index.html
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert("Failed to upload image. Please try again later.");
+        });
+    };
+  </script>
+
+</body>
+</html>

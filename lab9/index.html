@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Images</title>
+</head>
+<body>
+  
+<h3>Get image by my upload</h3>
+<button onclick="window.location.href='uploaddog.html'">อัปโหลด</button> <br> <hr>
+<div id="disp"></div> 
+
+<script>
+  const API_URL = "https://api.thedogapi.com/v1/";
+  const API_KEY = "live_Qni3tTW0k6FKxBMiLJ5hv4Pj9vUslb4MoiyuLUwsiVwQdo438uyHfMbida3juijZ";
+
+  function getMyUpload() {
+    fetch(`${API_URL}images/?limit=10&page=0&order=DESC`, {
+      method: "GET",
+      headers: {
+        "x-api-key": API_KEY,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        let disp = document.getElementById("disp");
+        if (data.length === 0) {
+          disp.innerText = "ไม่พบรูปของท่าน";
+        } else {
+          data.forEach((element) => {
+            disp.innerHTML += `<img src="${element.url}" width="22%" title="${element.id}"/>`;
+            disp.innerHTML += `<a href="#" onclick="deleteImage('${element.id}')"><img src="images/delete-24.png"></a>`;
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Failed to fetch images. Please try again later.");
+      });
+  }
+  getMyUpload();
+
+  function deleteImage(pid) {
+    fetch(`${API_URL}images/${pid}`, {
+      method: "DELETE",
+      headers: {
+        "x-api-key": API_KEY,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        alert("Image deleted successfully");
+        // หลังจากลบรูปแล้ว ให้โหลดรูปใหม่
+        location.reload();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Failed to delete image. Please try again later.");
+      });
+  }
+</script>
+
+</body>
+</html>
