@@ -9,10 +9,10 @@ import TheWelcome from './components/TheWelcome.vue'
     <form @submit.prevent="addTodo">
       <input v-model="newTodo" placeholder="Enter new todo" />
       <button type="submit">Add</button>
+      <button @click="filter = 'all'">ALL</button>
+      <button @click="filter = 'active'">Active</button>
+      <button @click="filter = 'done'">Done</button>
     </form>
-    <button @click="filter = 'all'">ALL</button>
-    <button @click="filter = 'active'">Active</button>
-    <button @click="filter = 'done'">Done</button>
     <ul>
       <li v-for="(todo, index) in todos" :key="todo.id">
         <span :class="{ done: todo.done }" @click="toggleTodo(index)">
